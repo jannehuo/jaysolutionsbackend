@@ -1,4 +1,4 @@
-import { get } from "../utils";
+import { get, converToFloat, converToUTC } from "../utils";
 
 // TODO: Better interface
 interface MetaData {
@@ -19,15 +19,17 @@ interface OhlcData {
 }
 
 // https://api.highcharts.com/highstock/series.ohlc.data
+// value keys in chart: x,open,high,low,close
 export const createDataForOhlcChart = (data: OhlcData) => {
   const timeSeries = data["Time Series (Daily)"];
   const dateKeys = Object.keys(timeSeries);
-  const ohlcChartData = dateKeys.map((key) => ({
-    x: key,
-    open: get(timeSeries[key], "1. open"),
-    high: get(timeSeries[key], "2. high"),
-    low: get(timeSeries[key], "3. low"),
-    close: get(timeSeries[key], "4. close"),
-  }));
-  return ohlcChartData;
+  const ohlcChartData = dateKeys.map((dateKey) => [
+    converToUTC(dateKey),
+    converToFloat(get(timeSeries[dateKey], "1. open")),
+    converToFloat(get(timeSeries[dateKey], "2. high")),
+    converToFloat(get(timeSeries[dateKey], "3. low")),
+    converToFloat(get(timeSeries[dateKey], "4. close")),
+  ]);
+  // Reverse the array so that it starts from oldest data points
+  return ohlcChartData.reverse();
 };
