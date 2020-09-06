@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.get("/data", (req, res) => {
   axios
     .get(
-      `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=${key}`
+      `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AAPL&outputsize=full&apikey=${key}`
     )
     .then((response) => {
       res.send(response.data);
@@ -20,5 +20,5 @@ app.get("/data", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+  console.log(`Server is running at https://localhost:${PORT}`);
 });
