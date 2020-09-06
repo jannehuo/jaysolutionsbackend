@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.get("/data", (req, res) => {
   axios
     .get(
-      `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AAPL&outputsize=full&apikey=${key}`
+      `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AAPL&outputsize=compact&apikey=${key}`
     )
     .then((response) => {
       res.send(response.data);
