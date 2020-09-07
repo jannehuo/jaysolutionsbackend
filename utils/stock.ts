@@ -1,13 +1,20 @@
 import { get, converToFloat, converToUTC } from "../utils";
 
-// TODO: Better interface
-interface MetaData {
-  [key: string]: string;
-}
+type MetaData = {
+  "1. Information": string;
+  "2. Symbol": string;
+  "3. Last Refreshed": string;
+  "4. Output Size": string;
+  "5. Time Zone": string;
+};
 
-interface Stock {
-  [key: string]: string;
-}
+type Stock = {
+  "1. open": string;
+  "2. high": string;
+  "3. low": string;
+  "4. close": string;
+  "5. volume": string;
+};
 
 interface TimeSeries {
   [key: string]: Stock;
